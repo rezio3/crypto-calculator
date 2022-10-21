@@ -5,32 +5,69 @@ class App extends Component {
 	state = {
 		cryptoQuantity: "",
 		currencyQuantity: "",
-		btc: "",
+		cryptoQuantityInputDisabled: false,
+		currencyQuantityInputDisabled: false,
+		btcData: "",
 		ethData: "",
+		btcPrice: "",
+		usdPrice: 1,
+		curriencesPrices: "",
 		eth: "",
 	};
 
-	handleSelect = () => {
-		const selectCrypto = document.getElementsByClassName("crypto-select");
-		const selectFiat = document.getElementsByClassName("curr-select");
-		fetch("https://api.coingecko.com/api/v3/exchange_rates")
-			.then((e) => e.json())
-			.then((result) => this.setState({ ethData: result.rates.eth.value }));
-
+	componentDidMount() {
 		fetch("https://api.coindesk.com/v1/bpi/currentprice.json")
 			.then((e) => e.json())
-			.then((result) => this.setState({ btc: result.bpi.USD.rate_float }));
+			.then((result) => this.setState({ btcData: result.bpi.USD.rate_float }));
 
 		fetch("https://open.er-api.com/v6/latest/USD")
 			.then((e) => e.json())
-			.then((result) => console.log(result));
+			.then((result) =>
+				this.setState({
+					curriencesPrices: result,
+				})
+			);
+	}
 
-		// console.log(this.state.eth, this.state.btc);
+	handleSelect = () => {
+		const selectCrypto = document.getElementsByClassName("crypto-select");
+		const selectFiat = document.getElementsByClassName("currency-select");
+
+		console.log(selectCrypto[0].value);
+		console.log(selectFiat[0].value);
+
+		fetch("https://api.coingecko.com/api/v3/exchange_rates")
+			.then((e) => e.json())
+			.then((result) => this.setState({ ethData: result.rates.eth.value }));
 	};
 
 	cryptoQuantityHandler = (e) => {
+		if (e.target.value === "") {
+			this.setState({
+				currencyQuantityInputDisabled: false,
+			});
+		} else {
+			this.setState({
+				currencyQuantityInputDisabled: true,
+			});
+		}
 		this.setState({
 			cryptoQuantity: e.target.value,
+		});
+	};
+
+	currencyQuantityHandler = (e) => {
+		if (e.target.value === "") {
+			this.setState({
+				cryptoQuantityInputDisabled: false,
+			});
+		} else {
+			this.setState({
+				cryptoQuantityInputDisabled: true,
+			});
+		}
+		this.setState({
+			currencyQuantity: e.target.value,
 		});
 	};
 
@@ -54,11 +91,11 @@ class App extends Component {
 								id="crypto"
 								onChange={this.handleSelect}
 							>
-								<option value="BTC">BTC</option>
-								<option value="ETH">ETH</option>
-								<option value="XRP">XRP</option>
-								<option value="ADA">ADA</option>
-								<option value="EOS">EOS</option>
+								<option value="btc">BTC</option>
+								<option value="eth">ETH</option>
+								<option value="xrp">XRP</option>
+								<option value="ada">ADA</option>
+								<option value="eos">EOS</option>
 							</select>
 						</label>
 						<label htmlFor="currency">
@@ -70,9 +107,9 @@ class App extends Component {
 								id="currency"
 								onChange={this.handleSelect}
 							>
-								<option value="BTC">PLN</option>
-								<option value="ETH">USD</option>
-								<option value="XRP">EUR</option>
+								<option value="USD">USD</option>
+								<option value="PLN">PLN</option>
+								<option value="EUR">EUR</option>
 							</select>
 						</label>
 					</div>
@@ -86,22 +123,26 @@ class App extends Component {
 								id="howManyCrypto"
 								value={this.state.cryptoQuantity}
 								onChange={this.cryptoQuantityHandler}
+								disabled={this.state.cryptoQuantityInputDisabled}
 							></input>
 						</label>
 						<label htmlFor="howManyCurrency">
 							<span>Quantity</span>
 							<input
-								type="text"
+								type="number"
 								className="howManyCurrency"
 								name="howManyCurrency"
 								id="howManyCurrency"
+								value={this.state.currencyQuantity}
+								onChange={this.currencyQuantityHandler}
+								disabled={this.state.currencyQuantityInputDisabled}
 							></input>
 						</label>
 					</div>
 				</div>
 				<button onClick={this.handleConvertBtn}>Convert</button>
 				<div className="cost">
-					<h3 className="btc-price">Cost: {this.state.btc}</h3>
+					<h3 className="btc-price">Cost: {this.state.btcPrice}</h3>
 				</div>
 			</div>
 		);
