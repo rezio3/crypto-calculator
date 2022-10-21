@@ -113,7 +113,10 @@ class App extends Component {
 			});
 		} else if (!this.state.currencyQuantity !== "") {
 			this.setState({
-				result: this.state.currencyQuantity / this.state.btcPrice + " BTC",
+				result:
+					this.state.currencyQuantity /
+						this.state[`${this.state.cryptoSelected}Price`] +
+					` ${this.state.cryptoSelected}`,
 			});
 		}
 	};
@@ -140,7 +143,7 @@ class App extends Component {
 							</select>
 						</label>
 						<label htmlFor="currency">
-							<span>Choose curriency</span>
+							<span>Choose currency</span>
 
 							<select
 								className="currency-select"
