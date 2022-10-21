@@ -21,7 +21,7 @@ class App extends Component {
 		plnPrice: "",
 		eurPrice: "",
 
-		curriencesData: "",
+		currenciesData: "",
 		result: "",
 		cryptoQuantityInputDisabled: false,
 		currencyQuantityInputDisabled: false,
@@ -43,7 +43,7 @@ class App extends Component {
 			.then((e) => e.json())
 			.then((result) =>
 				this.setState({
-					curriencesData: result,
+					currenciesData: result,
 				})
 			);
 
@@ -71,8 +71,8 @@ class App extends Component {
 			xlmPrice: this.state.btcData / this.state.xlmData,
 			eosPrice: this.state.btcData / this.state.eosData,
 
-			plnPrice: this.state.curriencesData.rates.PLN,
-			eurPrice: this.state.curriencesData.rates.EUR,
+			plnPrice: this.state.currenciesData.rates.PLN,
+			eurPrice: this.state.currenciesData.rates.EUR,
 		});
 	};
 
@@ -107,20 +107,23 @@ class App extends Component {
 	};
 
 	handleConvertBtn = () => {
-		console.log(this.state.curriencesData.rates.EUR);
+		let multiplier =
+			this.state[`${this.state.currencySelected.toLowerCase()}Price`];
+		console.log(multiplier);
 
 		if (this.state.cryptoQuantity !== "") {
 			this.setState({
 				result:
 					this.state[`${this.state.cryptoSelected}Price`] *
-						this.state.cryptoQuantity +
-					" $",
+						this.state.cryptoQuantity *
+						multiplier +
+					` ${this.state.currencySelected}`,
 			});
 		} else if (!this.state.currencyQuantity !== "") {
 			this.setState({
 				result:
 					this.state.currencyQuantity /
-						this.state[`${this.state.cryptoSelected}Price`] +
+						(multiplier * this.state[`${this.state.cryptoSelected}Price`]) +
 					` ${this.state.cryptoSelected}`,
 			});
 		}
