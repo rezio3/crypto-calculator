@@ -18,8 +18,10 @@ class App extends Component {
 		eosPrice: "",
 
 		usdPrice: 1,
+		plnPrice: "",
+		eurPrice: "",
 
-		curriencesPrices: "",
+		curriencesData: "",
 		result: "",
 		cryptoQuantityInputDisabled: false,
 		currencyQuantityInputDisabled: false,
@@ -41,11 +43,11 @@ class App extends Component {
 			.then((e) => e.json())
 			.then((result) =>
 				this.setState({
-					curriencesPrices: result,
+					curriencesData: result,
 				})
 			);
 
-		// pobieranie danych o eth
+		// pobieranie danych o altcoinach
 		fetch("https://api.coingecko.com/api/v3/exchange_rates")
 			.then((e) => e.json())
 			.then((result) =>
@@ -68,6 +70,9 @@ class App extends Component {
 			xrpPrice: this.state.btcData / this.state.xrpData,
 			xlmPrice: this.state.btcData / this.state.xlmData,
 			eosPrice: this.state.btcData / this.state.eosData,
+
+			plnPrice: this.state.curriencesData.rates.PLN,
+			eurPrice: this.state.curriencesData.rates.EUR,
 		});
 	};
 
@@ -102,7 +107,7 @@ class App extends Component {
 	};
 
 	handleConvertBtn = () => {
-		this.setState({});
+		console.log(this.state.curriencesData.rates.EUR);
 
 		if (this.state.cryptoQuantity !== "") {
 			this.setState({
