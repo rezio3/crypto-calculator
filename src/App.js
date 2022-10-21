@@ -5,23 +5,36 @@ class App extends Component {
 	state = {
 		cryptoQuantity: "",
 		currencyQuantity: "",
-		cryptoQuantityInputDisabled: false,
-		currencyQuantityInputDisabled: false,
+		cryptoSelected: "btc",
+		currencySelected: "USD",
+
 		btcData: "",
 		ethData: "",
+
 		btcPrice: "",
 		ethPrice: "",
-		usdPrice: 1,
-		curriencesPrices: "",
+		xrpPrice: "",
+		xlmPrice: "",
+		eosPrice: "",
 
+		usdPrice: 1,
+
+		curriencesPrices: "",
 		result: "",
+		cryptoQuantityInputDisabled: false,
+		currencyQuantityInputDisabled: false,
 	};
 
 	componentDidMount() {
 		// pobieranie danych o btc
 		fetch("https://api.coindesk.com/v1/bpi/currentprice.json")
 			.then((e) => e.json())
-			.then((result) => this.setState({ btcData: result.bpi.USD.rate_float }));
+			.then((result) =>
+				this.setState({
+					btcData: result.bpi.USD.rate_float,
+					btcPrice: this.state.btcData,
+				})
+			);
 
 		// pobieranie danych o walutach FIAT
 		fetch("https://open.er-api.com/v6/latest/USD")
@@ -35,15 +48,27 @@ class App extends Component {
 		// pobieranie danych o eth
 		fetch("https://api.coingecko.com/api/v3/exchange_rates")
 			.then((e) => e.json())
-			.then((result) => this.setState({ ethData: result.rates.eth.value }));
+			.then((result) =>
+				this.setState({
+					ethData: result.rates.eth.value,
+					xrpData: result.rates.xrp.value,
+					xlmData: result.rates.xlm.value,
+					eosData: result.rates.eos.value,
+				})
+			);
 	}
 
 	handleSelect = () => {
 		const selectCrypto = document.getElementsByClassName("crypto-select");
 		const selectFiat = document.getElementsByClassName("currency-select");
-
-		console.log(selectCrypto[0].value);
-		console.log(selectFiat[0].value);
+		this.setState({
+			cryptoSelected: selectCrypto[0].value,
+			currencySelected: selectFiat[0].value,
+			ethPrice: this.state.btcData / this.state.ethData,
+			xrpPrice: this.state.btcData / this.state.xrpData,
+			xlmPrice: this.state.btcData / this.state.xlmData,
+			eosPrice: this.state.btcData / this.state.eosData,
+		});
 	};
 
 	cryptoQuantityHandler = (e) => {
@@ -77,19 +102,20 @@ class App extends Component {
 	};
 
 	handleConvertBtn = () => {
+		this.setState({});
+
 		if (this.state.cryptoQuantity !== "") {
 			this.setState({
-				result: this.state.btcData * this.state.cryptoQuantity + " $",
+				result:
+					this.state[`${this.state.cryptoSelected}Price`] *
+						this.state.cryptoQuantity +
+					" $",
 			});
 		} else if (!this.state.currencyQuantity !== "") {
 			this.setState({
-				result: this.state.currencyQuantity / this.state.btcData + " $",
+				result: this.state.currencyQuantity / this.state.btcPrice + " BTC",
 			});
 		}
-
-		this.setState({
-			ethPrice: this.state.btcData / this.state.ethData,
-		});
 	};
 
 	render() {
@@ -109,7 +135,7 @@ class App extends Component {
 								<option value="btc">BTC</option>
 								<option value="eth">ETH</option>
 								<option value="xrp">XRP</option>
-								<option value="ada">ADA</option>
+								<option value="xlm">XLM</option>
 								<option value="eos">EOS</option>
 							</select>
 						</label>
