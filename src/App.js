@@ -10,16 +10,20 @@ class App extends Component {
 		btcData: "",
 		ethData: "",
 		btcPrice: "",
+		ethPrice: "",
 		usdPrice: 1,
 		curriencesPrices: "",
-		eth: "",
+
+		result: "",
 	};
 
 	componentDidMount() {
+		// pobieranie danych o btc
 		fetch("https://api.coindesk.com/v1/bpi/currentprice.json")
 			.then((e) => e.json())
 			.then((result) => this.setState({ btcData: result.bpi.USD.rate_float }));
 
+		// pobieranie danych o walutach FIAT
 		fetch("https://open.er-api.com/v6/latest/USD")
 			.then((e) => e.json())
 			.then((result) =>
@@ -27,6 +31,11 @@ class App extends Component {
 					curriencesPrices: result,
 				})
 			);
+
+		// pobieranie danych o eth
+		fetch("https://api.coingecko.com/api/v3/exchange_rates")
+			.then((e) => e.json())
+			.then((result) => this.setState({ ethData: result.rates.eth.value }));
 	}
 
 	handleSelect = () => {
@@ -35,10 +44,6 @@ class App extends Component {
 
 		console.log(selectCrypto[0].value);
 		console.log(selectFiat[0].value);
-
-		fetch("https://api.coingecko.com/api/v3/exchange_rates")
-			.then((e) => e.json())
-			.then((result) => this.setState({ ethData: result.rates.eth.value }));
 	};
 
 	cryptoQuantityHandler = (e) => {
@@ -72,8 +77,18 @@ class App extends Component {
 	};
 
 	handleConvertBtn = () => {
+		if (this.state.cryptoQuantity !== "") {
+			this.setState({
+				result: this.state.btcData * this.state.cryptoQuantity + " $",
+			});
+		} else if (!this.state.currencyQuantity !== "") {
+			this.setState({
+				result: this.state.currencyQuantity / this.state.btcData + " $",
+			});
+		}
+
 		this.setState({
-			eth: this.state.btc / this.state.ethData,
+			ethPrice: this.state.btcData / this.state.ethData,
 		});
 	};
 
@@ -142,7 +157,7 @@ class App extends Component {
 				</div>
 				<button onClick={this.handleConvertBtn}>Convert</button>
 				<div className="cost">
-					<h3 className="btc-price">Cost: {this.state.btcPrice}</h3>
+					<h3 className="btc-price">Cost: {this.state.result}</h3>
 				</div>
 			</div>
 		);
