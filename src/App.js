@@ -63,13 +63,15 @@ class App extends Component {
 	handleSelect = () => {
 		const selectCrypto = document.getElementsByClassName("crypto-select");
 		const selectFiat = document.getElementsByClassName("currency-select");
+		const { btcData, ethData, xrpData, xlmData, eosData } = this.state;
+
 		this.setState({
 			cryptoSelected: selectCrypto[0].value,
 			currencySelected: selectFiat[0].value,
-			ethPrice: this.state.btcData / this.state.ethData,
-			xrpPrice: this.state.btcData / this.state.xrpData,
-			xlmPrice: this.state.btcData / this.state.xlmData,
-			eosPrice: this.state.btcData / this.state.eosData,
+			ethPrice: btcData / ethData,
+			xrpPrice: btcData / xrpData,
+			xlmPrice: btcData / xlmData,
+			eosPrice: btcData / eosData,
 
 			plnPrice: this.state.currenciesData.rates.PLN,
 			eurPrice: this.state.currenciesData.rates.EUR,
@@ -107,26 +109,44 @@ class App extends Component {
 	};
 
 	handleConvertBtn = () => {
-		let multiplier =
-			this.state[`${this.state.currencySelected.toLowerCase()}Price`];
+		const {
+			currencySelected,
+			currencyQuantity,
+			cryptoSelected,
+			cryptoQuantity,
+		} = this.state;
+
+		const multiplier = this.state[`${currencySelected.toLowerCase()}Price`];
 		console.log(multiplier);
 
-		if (this.state.cryptoQuantity !== "") {
+		if (cryptoQuantity !== "") {
 			this.setState({
 				result:
-					this.state[`${this.state.cryptoSelected}Price`] *
-						this.state.cryptoQuantity *
-						multiplier +
-					` ${this.state.currencySelected}`,
+					(
+						this.state[`${cryptoSelected}Price`] *
+						cryptoQuantity *
+						multiplier
+					).toFixed(2) + ` ${currencySelected}`,
 			});
-		} else if (!this.state.currencyQuantity !== "") {
+		} else if (!currencyQuantity !== "") {
 			this.setState({
 				result:
-					this.state.currencyQuantity /
-						(multiplier * this.state[`${this.state.cryptoSelected}Price`]) +
-					` ${this.state.cryptoSelected}`,
+					(
+						currencyQuantity /
+						(multiplier * this.state[`${cryptoSelected}Price`])
+					).toFixed(8) + ` ${cryptoSelected}`,
 			});
 		}
+	};
+
+	clearHandler = () => {
+		this.setState({
+			currencyQuantity: "",
+			cryptoQuantity: "",
+			currencyQuantityInputDisabled: false,
+			cryptoQuantityInputDisabled: false,
+			result: "",
+		});
 	};
 
 	render() {
@@ -192,6 +212,7 @@ class App extends Component {
 						</label>
 					</div>
 				</div>
+				<button onClick={this.clearHandler}>Clear</button>
 				<button onClick={this.handleConvertBtn}>Convert</button>
 				<div className="cost">
 					<h3 className="btc-price">Cost: {this.state.result}</h3>
