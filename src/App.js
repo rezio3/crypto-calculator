@@ -8,14 +8,16 @@ class App extends Component {
 		cryptoSelected: "btc",
 		currencySelected: "USD",
 
-		btcData: "",
-		ethData: "",
-
 		btcPrice: "",
 		ethPrice: "",
 		xrpPrice: "",
 		xlmPrice: "",
 		eosPrice: "",
+
+		ethData: "",
+		xrpData: "",
+		xlmData: "",
+		eosData: "",
 
 		usdPrice: 1,
 		plnPrice: "",
@@ -33,8 +35,7 @@ class App extends Component {
 			.then((e) => e.json())
 			.then((result) =>
 				this.setState({
-					btcData: result.bpi.USD.rate_float,
-					btcPrice: this.state.btcData,
+					btcPrice: result.bpi.USD.rate_float,
 				})
 			);
 
@@ -63,15 +64,16 @@ class App extends Component {
 	handleSelect = () => {
 		const selectCrypto = document.getElementsByClassName("crypto-select");
 		const selectFiat = document.getElementsByClassName("currency-select");
-		const { btcData, ethData, xrpData, xlmData, eosData } = this.state;
+		const { btcPrice, ethData, xrpData, xlmData, eosData } = this.state;
 
 		this.setState({
 			cryptoSelected: selectCrypto[0].value,
 			currencySelected: selectFiat[0].value,
-			ethPrice: btcData / ethData,
-			xrpPrice: btcData / xrpData,
-			xlmPrice: btcData / xlmData,
-			eosPrice: btcData / eosData,
+
+			ethPrice: btcPrice / ethData,
+			xrpPrice: btcPrice / xrpData,
+			xlmPrice: btcPrice / xlmData,
+			eosPrice: btcPrice / eosData,
 
 			plnPrice: this.state.currenciesData.rates.PLN,
 			eurPrice: this.state.currenciesData.rates.EUR,
