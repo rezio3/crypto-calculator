@@ -1,56 +1,150 @@
-.app-container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	background-color: #ddd;
+body {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	background-color: rgb(88, 150, 221);
+	font-family: "Heebo", sans-serif;
+}
+
+.main-container {
+	text-align: center;
 	width: 100%;
 	height: 100vh;
-	margin: 0 auto;
-	padding: 0;
+	.header {
+		text-align: center;
+		margin: 5px 0;
+	}
 
-	.calculator-container {
+	.app-container {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		padding-top: 50px;
+		background-color: rgb(126, 202, 126);
+		// border: 2px solid rgb(100, 196, 100);
+		border-radius: 20px;
+		width: 50%;
+		max-width: 480px;
+		min-height: 350px;
+		margin: 5px auto 0;
+		padding: 0;
 
-		.curriences-container-left,
-		.curriences-container-right {
+		.calculator-container {
 			display: flex;
-			flex-direction: column;
-			justify-content: space-evenly;
+			flex-direction: row;
+			justify-content: center;
 			align-items: center;
 
-			.crypto-select,
-			.currency-select,
-			.cryptoQuantity,
-			.currencyQuantity {
-				width: 60px;
-				height: 20px;
-				font-size: 14px;
+			.curriences-container-left,
+			.curriences-container-right {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-evenly;
+				align-items: center;
+				margin: 20px 10px 0;
+
+				.crypto-select,
+				.currency-select,
+				.howManyCurrency,
+				.howManyCrypto {
+					width: 60px;
+					height: 30px;
+					padding: 5px;
+					background-color: rgb(217, 255, 217);
+					font-size: 14px;
+					border: none;
+					border-radius: 10px;
+				}
+
+				.howManyCurrency,
+				.howManyCrypto {
+					width: 120px;
+					height: 20px;
+					text-align: center;
+				}
+
+				input:disabled {
+					background-color: rgb(161, 161, 161);
+				}
+			}
+
+			label {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-evenly;
+				align-items: center;
+				margin-bottom: 30px;
+				font-weight: bold;
 			}
 		}
 
-		label {
+		.cost {
 			display: flex;
-			flex-direction: column;
-			justify-content: space-evenly;
 			align-items: center;
-			margin-bottom: 30px;
+			margin-top: 20px;
+			background-color: rgb(112, 180, 112);
+			border-radius: 10px;
+			width: 300px;
+			height: 80px;
+			margin-bottom: 20px;
+
+			h3 {
+				margin-left: 10px;
+			}
+		}
+		.buttons-container {
+			.clear-btn,
+			.convert-btn {
+				margin: 10px 50px;
+				padding: 10px;
+				border: none;
+				background-color: rgb(217, 255, 217);
+				font-weight: bold;
+				cursor: pointer;
+			}
+			.clear-btn {
+				margin-left: 35px;
+			}
+
+			.clear-btn:hover,
+			.convert-btn:hover {
+				background-color: rgb(140, 175, 140);
+			}
 		}
 	}
+}
 
-	.cost {
-		display: flex;
-		align-items: center;
-		margin-top: 20px;
-		background-color: #888;
-		width: 300px;
-		height: 80px;
-
-		h3 {
-			margin-left: 10px;
+@media (max-width: 630px) {
+	.main-container {
+		.app-container {
+			width: 90%;
+			.calculator-container {
+				flex-direction: column;
+				.curriences-container-left,
+				.curriences-container-right {
+					margin: 5px 0;
+				}
+				label {
+					margin: 5px 0;
+				}
+			}
+			.buttons-container {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				.clear-btn,
+				.convert-btn {
+					margin: 5px 0;
+				}
+			}
+			.cost {
+				width: 90%;
+				margin-top: 5px;
+			}
 		}
+	}
+	.header {
+		font-size: 26px;
 	}
 }

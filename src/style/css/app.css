@@ -1,54 +1,142 @@
-.app-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #ddd;
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: rgb(88, 150, 221);
+  font-family: "Heebo", sans-serif;
+}
+
+.main-container {
+  text-align: center;
   width: 100%;
   height: 100vh;
-  margin: 0 auto;
+}
+.main-container .header {
+  text-align: center;
+  margin: 5px 0;
+}
+.main-container .app-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(126, 202, 126);
+  border-radius: 20px;
+  width: 50%;
+  max-width: 480px;
+  min-height: 350px;
+  margin: 5px auto 0;
   padding: 0;
 }
-.app-container .calculator-container {
+.main-container .app-container .calculator-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding-top: 50px;
 }
-.app-container .calculator-container .curriences-container-left,
-.app-container .calculator-container .curriences-container-right {
+.main-container .app-container .calculator-container .curriences-container-left,
+.main-container .app-container .calculator-container .curriences-container-right {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  margin: 20px 10px 0;
 }
-.app-container .calculator-container .curriences-container-left .crypto-select,
-.app-container .calculator-container .curriences-container-left .currency-select,
-.app-container .calculator-container .curriences-container-left .cryptoQuantity,
-.app-container .calculator-container .curriences-container-left .currencyQuantity,
-.app-container .calculator-container .curriences-container-right .crypto-select,
-.app-container .calculator-container .curriences-container-right .currency-select,
-.app-container .calculator-container .curriences-container-right .cryptoQuantity,
-.app-container .calculator-container .curriences-container-right .currencyQuantity {
+.main-container .app-container .calculator-container .curriences-container-left .crypto-select,
+.main-container .app-container .calculator-container .curriences-container-left .currency-select,
+.main-container .app-container .calculator-container .curriences-container-left .howManyCurrency,
+.main-container .app-container .calculator-container .curriences-container-left .howManyCrypto,
+.main-container .app-container .calculator-container .curriences-container-right .crypto-select,
+.main-container .app-container .calculator-container .curriences-container-right .currency-select,
+.main-container .app-container .calculator-container .curriences-container-right .howManyCurrency,
+.main-container .app-container .calculator-container .curriences-container-right .howManyCrypto {
   width: 60px;
-  height: 20px;
+  height: 30px;
+  padding: 5px;
+  background-color: rgb(217, 255, 217);
   font-size: 14px;
+  border: none;
+  border-radius: 10px;
 }
-.app-container .calculator-container label {
+.main-container .app-container .calculator-container .curriences-container-left .howManyCurrency,
+.main-container .app-container .calculator-container .curriences-container-left .howManyCrypto,
+.main-container .app-container .calculator-container .curriences-container-right .howManyCurrency,
+.main-container .app-container .calculator-container .curriences-container-right .howManyCrypto {
+  width: 120px;
+  height: 20px;
+  text-align: center;
+}
+.main-container .app-container .calculator-container .curriences-container-left input:disabled,
+.main-container .app-container .calculator-container .curriences-container-right input:disabled {
+  background-color: rgb(161, 161, 161);
+}
+.main-container .app-container .calculator-container label {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
   margin-bottom: 30px;
+  font-weight: bold;
 }
-.app-container .cost {
+.main-container .app-container .cost {
   display: flex;
   align-items: center;
   margin-top: 20px;
-  background-color: #888;
+  background-color: rgb(112, 180, 112);
+  border-radius: 10px;
   width: 300px;
   height: 80px;
+  margin-bottom: 20px;
 }
-.app-container .cost h3 {
+.main-container .app-container .cost h3 {
   margin-left: 10px;
+}
+.main-container .app-container .buttons-container .clear-btn,
+.main-container .app-container .buttons-container .convert-btn {
+  margin: 10px 50px;
+  padding: 10px;
+  border: none;
+  background-color: rgb(217, 255, 217);
+  font-weight: bold;
+  cursor: pointer;
+}
+.main-container .app-container .buttons-container .clear-btn {
+  margin-left: 35px;
+}
+.main-container .app-container .buttons-container .clear-btn:hover,
+.main-container .app-container .buttons-container .convert-btn:hover {
+  background-color: rgb(140, 175, 140);
+}
+
+@media (max-width: 630px) {
+  .main-container .app-container {
+    width: 90%;
+  }
+  .main-container .app-container .calculator-container {
+    flex-direction: column;
+  }
+  .main-container .app-container .calculator-container .curriences-container-left,
+.main-container .app-container .calculator-container .curriences-container-right {
+    margin: 5px 0;
+  }
+  .main-container .app-container .calculator-container label {
+    margin: 5px 0;
+  }
+  .main-container .app-container .buttons-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .main-container .app-container .buttons-container .clear-btn,
+.main-container .app-container .buttons-container .convert-btn {
+    margin: 5px 0;
+  }
+  .main-container .app-container .cost {
+    width: 90%;
+    margin-top: 5px;
+  }
+  .header {
+    font-size: 26px;
+  }
 }

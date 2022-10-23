@@ -153,72 +153,87 @@ class App extends Component {
 
 	render() {
 		return (
-			<div className="app-container">
-				<div className="calculator-container">
-					<div className="curriences-container-left">
-						<label htmlFor="crypto">
-							<span>Choose crypto</span>
+			<div className="main-container">
+				<h1 className="header">Crypto Calculator</h1>
+				<div className="app-container">
+					<div className="calculator-container">
+						<div className="curriences-container-left">
+							<label htmlFor="crypto">
+								<span>Choose crypto</span>
 
-							<select
-								className="crypto-select"
-								name="crypto"
-								id="crypto"
-								onChange={this.handleSelect}
-							>
-								<option value="btc">BTC</option>
-								<option value="eth">ETH</option>
-								<option value="xrp">XRP</option>
-								<option value="xlm">XLM</option>
-								<option value="eos">EOS</option>
-							</select>
-						</label>
-						<label htmlFor="currency">
-							<span>Choose currency</span>
+								<select
+									className="crypto-select"
+									name="crypto"
+									id="crypto"
+									onChange={this.handleSelect}
+								>
+									<option value="btc">BTC</option>
+									<option value="eth">ETH</option>
+									<option value="xrp">XRP</option>
+									<option value="xlm">XLM</option>
+									<option value="eos">EOS</option>
+								</select>
+							</label>
 
-							<select
-								className="currency-select"
-								name="currency"
-								id="currency"
-								onChange={this.handleSelect}
-							>
-								<option value="USD">USD</option>
-								<option value="PLN">PLN</option>
-								<option value="EUR">EUR</option>
-							</select>
-						</label>
+							<label htmlFor="howManyCrypto">
+								<span>Quantity</span>
+								<input
+									type="number"
+									className="howManyCrypto"
+									name="howManyCrypto"
+									id="howManyCrypto"
+									value={this.state.cryptoQuantity}
+									onChange={this.cryptoQuantityHandler}
+									disabled={this.state.cryptoQuantityInputDisabled}
+								></input>
+							</label>
+						</div>
+						<div className="curriences-container-right">
+							<label htmlFor="currency">
+								<span>Choose currency</span>
+
+								<select
+									className="currency-select"
+									name="currency"
+									id="currency"
+									onChange={this.handleSelect}
+								>
+									<option value="USD">USD</option>
+									<option value="PLN">PLN</option>
+									<option value="EUR">EUR</option>
+								</select>
+							</label>
+							<label htmlFor="howManyCurrency">
+								<span>Quantity</span>
+								<input
+									type="number"
+									className="howManyCurrency"
+									name="howManyCurrency"
+									id="howManyCurrency"
+									value={this.state.currencyQuantity}
+									onChange={this.currencyQuantityHandler}
+									disabled={this.state.currencyQuantityInputDisabled}
+								></input>
+							</label>
+						</div>
 					</div>
-					<div className="curriences-container-right">
-						<label htmlFor="howManyCrypto">
-							<span>Quantity</span>
-							<input
-								type="number"
-								className="howManyCrypto"
-								name="howManyCrypto"
-								id="howManyCrypto"
-								value={this.state.cryptoQuantity}
-								onChange={this.cryptoQuantityHandler}
-								disabled={this.state.cryptoQuantityInputDisabled}
-							></input>
-						</label>
-						<label htmlFor="howManyCurrency">
-							<span>Quantity</span>
-							<input
-								type="number"
-								className="howManyCurrency"
-								name="howManyCurrency"
-								id="howManyCurrency"
-								value={this.state.currencyQuantity}
-								onChange={this.currencyQuantityHandler}
-								disabled={this.state.currencyQuantityInputDisabled}
-							></input>
-						</label>
+					<div className="buttons-container">
+						<button onClick={this.handleConvertBtn} className="convert-btn">
+							Convert
+						</button>
+						<button onClick={this.clearHandler} className="clear-btn">
+							Clear
+						</button>
+					</div>
+					<div className="cost">
+						<h3 className="btc-price">Cost: {this.state.result}</h3>
 					</div>
 				</div>
-				<button onClick={this.clearHandler}>Clear</button>
-				<button onClick={this.handleConvertBtn}>Convert</button>
-				<div className="cost">
-					<h3 className="btc-price">Cost: {this.state.result}</h3>
-				</div>
+				<span>
+					Prices are taken from{" "}
+					<a href="https://www.coingecko.com/pl">coingeco</a> and{" "}
+					<a href="https://www.coindesk.com/">coindesk</a>
+				</span>
 			</div>
 		);
 	}
