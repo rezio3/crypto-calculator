@@ -1,4 +1,11 @@
-# Getting Started with Create React App
+# Website
+crypto-calculator.prv.pl
+
+## Description
+Crypto Calculator is a simple project created as a part of my portfolio.
+Application uses API from Coindesk and Coingecko.
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
