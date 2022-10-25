@@ -1,5 +1,5 @@
 # Website
-crypto-calculator.prv.pl
+https://crypto-calculator.prv.pl/
 
 ## Description
 Crypto Calculator is a simple project created as a part of my portfolio.
