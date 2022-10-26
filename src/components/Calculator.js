@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { GlobalState } from "./AppContext";
 import Inputs from "./Inputs";
+import Buttons from "./Buttons";
 
 const Calculator = () => {
 	const [state, setState] = useContext(GlobalState);
@@ -30,62 +31,11 @@ const Calculator = () => {
 			);
 	}, []);
 
-	const handleConvertBtn = () => {
-		const {
-			currencySelected,
-			currencyQuantity,
-			cryptoSelected,
-			cryptoQuantity,
-		} = state._currentValue;
-		console.log(cryptoSelected);
-
-		const multiplier = state._currentValue[`${currencySelected}Price`];
-		console.log(multiplier);
-
-		if (cryptoQuantity !== "") {
-			setState({
-				...state._currentValue,
-				result:
-					(
-						state._currentValue[`${cryptoSelected}Price`] *
-						cryptoQuantity *
-						multiplier
-					).toFixed(2) + ` ${currencySelected}`,
-			});
-		} else if (!currencyQuantity !== "") {
-			setState({
-				...state._currentValue,
-				result:
-					(
-						currencyQuantity /
-						(multiplier * state._currentValue[`${cryptoSelected}Price`])
-					).toFixed(8) + ` ${cryptoSelected}`,
-			});
-		}
-	};
-	const clearHandler = () => {
-		setState({
-			...state._currentValue,
-			currencyQuantity: "",
-			cryptoQuantity: "",
-			currencyQuantityInputDisabled: false,
-			cryptoQuantityInputDisabled: false,
-			result: "",
-		});
-	};
-
 	return (
 		<React.Fragment>
 			<div className="app-container">
 				<Inputs />
-				<div className="buttons-container">
-					<button onClick={handleConvertBtn} className="convert-btn">
-						Convert
-					</button>
-					<button onClick={clearHandler} className="clear-btn">
-						Clear
-					</button>
-				</div>
+				<Buttons />
 				<div className="cost">
 					<h3 className="btc-price">Cost: {state.result}</h3>
 				</div>
