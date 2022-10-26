@@ -50,7 +50,7 @@ body {
 .main-container .app-container .calculator-container .curriences-container-right .currency-select,
 .main-container .app-container .calculator-container .curriences-container-right .howManyCurrency,
 .main-container .app-container .calculator-container .curriences-container-right .howManyCrypto {
-  width: 60px;
+  width: 65px;
   height: 30px;
   padding: 5px;
   background-color: rgb(217, 255, 217);
