@@ -1,6 +1,6 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
-export const defaultObject = {
+const stateData = {
 	cryptoQuantity: "",
 	currencyQuantity: "",
 	cryptoSelected: "btc",
@@ -27,4 +27,15 @@ export const defaultObject = {
 	currencyQuantityInputDisabled: false,
 };
 
-export const AppContext = createContext(defaultObject);
+export const GlobalState = createContext();
+
+const AppContext = ({ children }) => {
+	const [state, setState] = useState(stateData);
+	return (
+		<GlobalState.Provider value={[state, setState]}>
+			{children}
+		</GlobalState.Provider>
+	);
+};
+
+export default AppContext;
