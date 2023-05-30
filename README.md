@@ -1,5 +1,5 @@
 # Website
-https://crypto-calculator.prv.pl/
+https://rezio3.github.io/crypto-calculator/
 
 ## Description
 Crypto Calculator is a simple project created as a part of my portfolio.
