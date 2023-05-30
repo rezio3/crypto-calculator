@@ -13,7 +13,6 @@ const Buttons = () => {
 		} = state;
 
 		const multiplier = state[`${currencySelected.toLowerCase()}Price`];
-		console.log(state[`${cryptoSelected}Price`]);
 
 		if (cryptoQuantity !== "") {
 			setState({
