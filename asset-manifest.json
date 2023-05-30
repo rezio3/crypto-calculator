@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/crypto-calculator/static/css/main.cd160926.css",
+    "main.js": "/crypto-calculator/static/js/main.d167e54e.js",
+    "index.html": "/crypto-calculator/index.html",
+    "main.cd160926.css.map": "/crypto-calculator/static/css/main.cd160926.css.map",
+    "main.d167e54e.js.map": "/crypto-calculator/static/js/main.d167e54e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cd160926.css",
+    "static/js/main.d167e54e.js"
+  ]
+}
